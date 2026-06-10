@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Svadharma India — Indian Knowledge Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold-deep:   #7a5a10;
+    --gold-mid:    #8b6914;
+    --gold-light:  #c9a96e;
+    --gold-pale:   #e8d5a3;
+    --cream-dark:  #f0ebe0;
+    --cream:       #f5f0e6;
+    --cream-light: #faf8f4;
+    --ink-dark:    #2e2010;
+    --ink:         #3a2e1e;
+    --ink-mid:     #5c4520;
+    --serif: 'Cormorant Garamond', 'Georgia', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--cream-light);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 248, 244, 0.96);
+    backdrop-filter: blur(6px);
+    border-bottom: 0.5px solid rgba(201,169,110,0.3);
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    color: var(--gold-mid);
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.13em;
+    color: var(--ink-mid);
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold-mid); }
+
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--gold-mid);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 72px 48px 60px;
+    background: linear-gradient(180deg, var(--cream-light) 0%, var(--cream) 100%);
+    border-bottom: 0.5px solid rgba(201,169,110,0.25);
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gold-deep);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    letter-spacing: 0.22em;
+    color: var(--gold-light);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  .hero-tagline {
+    font-size: 19px;
+    color: var(--ink-mid);
+    font-style: italic;
+    font-weight: 300;
+    max-width: 580px;
+    margin: 0 auto 36px;
+    line-height: 1.9;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 12px 32px;
+    font-family: var(--serif);
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.22s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-gold {
+    background: var(--gold-mid);
+    color: #fdf8ec;
+    border: 1px solid var(--gold-mid);
+  }
+
+  .btn-gold:hover { background: var(--gold-deep); border-color: var(--gold-deep); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--gold-mid);
+    border: 0.5px solid var(--gold-mid);
+  }
+
+  .btn-outline:hover { background: rgba(139,105,20,0.07); }
+
+  /* ── ORNAMENTS ── */
+  .ornament {
+    text-align: center;
+    color: rgba(201,169,110,0.5);
+    font-size: 15px;
+    letter-spacing: 0.45em;
+    padding: 8px 0;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 64px 48px;
+  }
+
+  section.alt { background: var(--cream); }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .section-header h2 {
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--gold-deep);
+    margin-bottom: 6px;
+  }
+
+  .section-header .eyebrow {
+    font-size: 14px;
+    color: var(--gold-light);
+    letter-spacing: 0.18em;
+    font-style: italic;
+  }
+
+  /* ── ARTICLE CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--cream-light);
+    border: 0.5px solid rgba(201,169,110,0.4);
+    border-radius: 4px;
+    padding: 36px 32px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(139, 105, 20, 0.05);
+  }
+
+  .card-date {
+    font-size: 13px;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+    font-style: italic;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--gold-deep);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+
+  .card p {
+    font-size: 16px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 22px;
+    flex-grow: 1;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+
+  .tag {
+    background: var(--cream);
+    border: 0.5px solid rgba(201,169,110,0.5);
+    color: var(--gold-deep);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-family: var(--serif);
+    text-transform: uppercase;
+  }
+
+  .card-btn {
+    display: inline-block;
+    padding: 10px 0;
+    color: var(--gold-mid);
+    font-family: var(--serif);
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    cursor: pointer;
+    text-decoration: none;
+    border-top: 0.5px solid rgba(201,169,110,0.2);
+    transition: color 0.2s;
+  }
+
+  .card-btn:hover {
+    color: var(--gold-deep);
+    text-decoration: underline;
+  }
+
+  /* ── ABOUT ── */
+  .about-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .about-quote {
+    font-size: 20px;
+    line-height: 2;
+    color: var(--ink-mid);
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 28px;
+    border-left: 2px solid var(--gold-pale);
+    padding-left: 28px;
+    text-align: left;
+  }
+
+  .about-body {
+    font-size: 17px;
+    line-height: 1.95;
+    color: var(--ink-mid);
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+
+  .about-sig {
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    color: var(--gold-mid);
+    font-style: normal;
+    margin-top: 28px;
+    display: block;
+  }
+
+  /* ── CONTACT ── */
+  .contact-inner {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-inner p {
+    font-size: 16px;
+    color: var(--ink-mid);
+    line-height: 1.9;
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border: 0.5px solid var(--gold-light);
+    border-radius: 2px;
+    color: var(--gold-deep);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    background: transparent;
+    font-family: var(--serif);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    background: var(--gold-mid);
+    color: #fdf8ec;
+    border-color: var(--gold-mid);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink-dark);
+    color: var(--gold-light);
+    text-align: center;
+    padding: 36px 48px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+  }
+
+  footer .foot-name {
+    font-size: 17px;
+    letter-spacing: 0.22em;
+    color: #d4b06a;
+    margin-bottom: 10px;
+  }
+
+  footer .foot-sub {
+    color: rgba(201,169,110,0.65);
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
+  footer .foot-copy {
+    color: rgba(201,169,110,0.4);
+    font-size: 12px;
+  }
+
+  /* ── SVG ICON HELPERS ── */
+  .icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 680px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; gap: 16px; position: absolute; top: 52px; left: 0; right: 0; background: rgba(250,248,244,0.98); padding: 24px 28px; border-bottom: 0.5px solid rgba(201,169,110,0.3); }
+    .nav-hamburger { display: flex; }
+    .hero { padding: 52px 20px 44px; }
+    .hero h1 { font-size: 32px; }
+    section { padding: 48px 20px; }
+    .cards { grid-template-columns: 1fr; }
+    footer { padding: 28px 20px; }
+  }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(46, 32, 16, 0.55);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.open {
+    display: flex;
+  }
+
+  .modal {
+    background: var(--cream-light);
+    border: 0.5px solid rgba(201,169,110,0.5);
+    border-radius: 6px;
+    padding: 44px 40px 36px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: left;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gold-light);
+    font-size: 22px;
+    line-height: 1;
+    font-family: var(--serif);
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--gold-deep); }
+
+  .modal-title {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--gold-deep);
+    margin-bottom: 4px;
+  }
+
+  .modal-sub {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: var(--gold-light);
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+
+  .field { margin-bottom: 20px; }
+
+  .field label {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: var(--gold-mid);
+    margin-bottom: 7px;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 11px 14px;
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--cream);
+    border: 0.5px solid rgba(201,169,110,0.5);
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus {
+    border-color: var(--gold-mid);
+    background: var(--cream-light);
+  }
+
+  .modal-submit {
+    width: 100%;
+    padding: 13px;
+    background: var(--gold-mid);
+    color: #fdf8ec;
+    border: none;
+    border-radius: 2px;
+    font-family: var(--serif);
+    font-size: 15px;
+    letter-spacing: 0.16em;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 4px;
+  }
+
+  .modal-submit:hover { background: var(--gold-deep); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">✦ Svadharma India</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#articles">Latest Articles</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Toggle menu" onclick="document.getElementById('nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero" id="home">
+  <h1>SVADHARMA INDIA</h1>
+  <p class="hero-subtitle">Exploring Indian Knowledge Systems</p>
+  <p class="hero-tagline">
+    "Bridging ancient wisdom with modern inquiry. A space dedicated to research, classical philosophy, and the profound depths of our timeless scriptures."
+  </p>
+  <div class="cta-row">
+    <a href="#articles" class="btn btn-gold">Read Latest Articles</a>
+    <button onclick="openSubscribe()" class="btn btn-outline">Subscribe to Newsletter</button>
+  </div>
+</section>
+
+<div class="ornament">— ॐ &nbsp; ✦ &nbsp; ॐ —</div>
+
+<section id="articles">
+  <div class="section-header">
+    <h2>Latest Articles</h2>
+    <p class="eyebrow">Philosophy &nbsp;·&nbsp; Scriptures &nbsp;·&nbsp; Pedagogy</p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <span class="card-date">May 14, 2026</span>
+      <h3>The Framework of Creation: An Introduction to Samkhya</h3>
+      <div class="tags">
+        <span class="tag">Philosophy</span>
+        <span class="tag">Samkhya</span>
+        <span class="tag">Darshana</span>
+      </div>
+      <p>
+        Exploring the dualistic realism of Purusha (consciousness) and Prakriti (matter). Discover how this classical framework provides a profound, logical understanding of the universe and our place within it.
+      </p>
+      <a href="#" class="card-btn" onclick="openSubscribe(); return false;">Read Full Article →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-date">April 28, 2026</span>
+      <h3>Echoes of Antiquity: Exploring the Hymns of the Rigveda</h3>
+      <div class="tags">
+        <span class="tag">Scriptures</span>
+        <span class="tag">Vedas</span>
+        <span class="tag">Rigveda</span>
+      </div>
+      <p>
+        A deep dive into the earliest known collection of Sanskrit hymns. We examine the philosophical inquiries, the relationship with nature, and the foundational cosmic order (Rta) laid out by the ancient rishis.
+      </p>
+      <a href="#" class="card-btn" onclick="openSubscribe(); return false;">Read Full Article →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-date">April 10, 2026</span>
+      <h3>Reimagining Pedagogy: IKS Principles in Early Education</h3>
+      <div class="tags">
+        <span class="tag">Education</span>
+        <span class="tag">Pedagogy</span>
+        <span class="tag">IKS</span>
+      </div>
+      <p>
+        How can we integrate the holistic approach of Indian Knowledge Systems into modern school curricula? Examining the role of storytelling, dramatic arts, and value-based learning for the next generation.
+      </p>
+      <a href="#" class="card-btn" onclick="openSubscribe(); return false;">Read Full Article →</a>
+    </div>
+  </div>
+</section>
+
+<div class="ornament">— ✦ —</div>
+
+<section id="about" class="alt">
+  <div class="section-header">
+    <h2>About Svadharma India</h2>
+    <p class="eyebrow">Rooted in tradition &nbsp;·&nbsp; Driven by inquiry</p>
+  </div>
+  <div class="about-inner">
+    <blockquote class="about-quote">
+      "True knowledge is that which liberates. By understanding the frameworks of the past, we illuminate the path of the future."
+    </blockquote>
+    <p class="about-body">
+      Svadharma India is an educational platform dedicated to the thorough research, understanding, and dissemination of Indian Knowledge Systems (IKS). We believe that classical Sanskrit philosophy and ancient scriptures hold immense relevance for contemporary society.
+    </p>
+    <p class="about-body">
+      Through regular articles and thought pieces, we aim to make profound concepts—from the structural logic of Samkhya to the poetic depth of the Rigveda—accessible to modern readers, educators, and seekers.
+    </p>
+    <span class="about-sig">— Svadharma India &nbsp;✦&nbsp; Ahmedabad</span>
+  </div>
+</section>
+
+<div class="ornament">— ॐ &nbsp; ✦ &nbsp; ॐ —</div>
+
+<section id="contact">
+  <div class="section-header">
+    <h2>Reach Out</h2>
+    <p class="eyebrow">Collaborate &nbsp;·&nbsp; Discuss &nbsp;·&nbsp; Inquire</p>
+  </div>
+  <div class="contact-inner">
+    <p>
+      Whether you are a fellow researcher, an educator looking to integrate IKS, or simply a curious reader, we welcome your thoughts and inquiries.
+    </p>
+    <div class="contact-links">
+      <a class="contact-link" href="https://instagram.com/svadharma.in" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        Instagram
+      </a>
+      <a class="contact-link" href="mailto:svadharmaschool@gmail.com">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email Us
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="subscribeModal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="modal-close" onclick="closeSubscribe()" aria-label="Close">✕</button>
+    <div id="modal-form-wrap">
+      <p class="modal-title" id="modal-title">Join the Newsletter</p>
+      <p class="modal-sub">Insights on IKS &nbsp;·&nbsp; Delivered Monthly</p>
+      <p class="modal-hint">Subscribe to receive our latest articles on classical philosophy, scriptures, and ancient wisdom directly in your inbox.</p>
+      
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="field">
+          <label for="s-name">First name</label>
+          <input type="text" id="s-name" name="first-name" placeholder="Your name" required />
+        </div>
+        <div class="field">
+          <label for="s-email">Email address</label>
+          <input type="email" id="s-email" name="email" placeholder="your@email.com" required />
+        </div>
+        <button type="submit" class="modal-submit">Subscribe Now →</button>
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p class="foot-name">✦ &nbsp; SVADHARMA INDIA &nbsp; ✦</p>
+  <p class="foot-sub">Research &amp; Education in Indian Knowledge Systems &nbsp;·&nbsp; Ahmedabad, India</p>
+  <p class="foot-copy">© 2026 Svadharma India &nbsp;·&nbsp; All rights reserved</p>
+</footer>
+
+<script>
+  /* smooth scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const t = document.querySelector(this.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); document.getElementById('nav-links').classList.remove('open'); }
+    });
+  });
+
+  /* ── Subscribe modal ── */
+  function openSubscribe() {
+    document.getElementById('subscribeModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSubscribe() {
+    document.getElementById('subscribeModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('subscribeModal').addEventListener('click', function(e){ if(e.target===this) closeSubscribe(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeSubscribe(); } });
+</script>
+
+</body>
+</html>
