@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rasa Studio — Drama & Performance Arts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0A0A0F;
+    --wine: #2D0A1F;
+    --magenta: #C41E6B;
+    --rose: #E8547A;
+    --champagne: #F5E6D3;
+    --cream: #FAF7F2;
+    --gold: #D4A853;
+    --mist: #A89BAE;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--champagne);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 4rem;
+    background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-style: italic; font-weight: 700;
+    color: var(--champagne); letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--magenta); }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav ul a {
+    font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mist); text-decoration: none; transition: color 0.3s;
+  }
+  nav ul a:hover { color: var(--champagne); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center;
+    background: var(--ink); overflow: hidden;
+  }
+  #abstract-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 4rem; max-width: 780px;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--magenta); margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 1.02; font-weight: 900;
+    color: var(--cream);
+  }
+  .hero-title em { font-style: italic; color: var(--magenta); }
+  .hero-sub {
+    margin-top: 1.8rem; font-size: 1.1rem; font-weight: 300;
+    color: var(--champagne); max-width: 480px; line-height: 1.7;
+    opacity: 0.85;
+  }
+  .hero-cta {
+    margin-top: 2.8rem; display: flex; gap: 1.2rem; align-items: center;
+  }
+  .btn-primary {
+    background: var(--magenta); color: #fff; border: none;
+    padding: 0.85rem 2.2rem; font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer; text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--rose); transform: translateY(-2px); }
+  .btn-ghost {
+    color: var(--champagne); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border-bottom: 1px solid var(--mist); padding-bottom: 2px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--champagne); }
+
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 4rem; z-index: 2;
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--mist);
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--mist);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+  @keyframes scroll-pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .divider-line { flex: 1; height: 1px; background: rgba(200,180,170,0.15); }
+  .divider-dot { width: 6px; height: 6px; background: var(--magenta); border-radius: 50%; }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--wine);
+    padding: 8rem 4rem; position: relative; overflow: hidden;
+  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--magenta); margin-bottom: 1.2rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 700; line-height: 1.15;
+    color: var(--cream);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body {
+    font-size: 1rem; line-height: 1.85; font-weight: 300;
+    color: var(--champagne); opacity: 0.8; margin-top: 1.5rem;
+  }
+  .about-art {
+    position: relative; height: 420px;
+  }
+  .abstract-blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(40px); mix-blend-mode: screen; opacity: 0.55;
+  }
+  .blob-1 { width:280px;height:280px; background:#C41E6B; top:0; left:20px; animation: drift1 8s ease-in-out infinite; }
+  .blob-2 { width:200px;height:200px; background:#D4A853; top:80px; left:140px; animation: drift2 10s ease-in-out infinite; }
+  .blob-3 { width:160px;height:160px; background:#6B1C4A; bottom:20px; right:10px; animation: drift3 7s ease-in-out infinite; }
+  @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(20px,-15px) scale(1.05)} }
+  @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-15px,20px) scale(0.95)} }
+  @keyframes drift3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(10px,-10px) scale(1.08)} }
+  .art-quote {
+    position: absolute; bottom: 40px; left: 0; right: 0; z-index: 2;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-style: italic; font-weight: 400;
+    color: var(--cream); text-align: center; line-height: 1.4;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  /* ── PROGRAMS ── */
+  #programs {
+    background: var(--ink);
+    padding: 8rem 4rem;
+  }
+  .programs-header { text-align: center; margin-bottom: 4rem; }
+  .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+  .program-card {
+    background: rgba(255,255,255,0.03);
+    padding: 2.8rem 2.2rem;
+    border: 1px solid rgba(200,170,180,0.08);
+    transition: background 0.3s, border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .program-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--magenta);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .program-card:hover::before { transform: scaleX(1); }
+  .program-card:hover { background: rgba(196,30,107,0.06); border-color: rgba(196,30,107,0.2); }
+  .card-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; font-style: italic; font-weight: 900;
+    color: rgba(196,30,107,0.18); line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+  .card-desc {
+    font-size: 0.9rem; line-height: 1.75; color: var(--mist); font-weight: 300;
+  }
+  .card-tag {
+    display: inline-block; margin-top: 1.5rem;
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--magenta); border: 1px solid rgba(196,30,107,0.35);
+    padding: 0.3rem 0.8rem;
+  }
+
+  /* ── WHY ── */
+  #why {
+    background: #0F0A14;
+    padding: 8rem 4rem;
+  }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .why-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem; }
+  .why-item { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .why-icon {
+    width: 42px; height: 42px; min-width: 42px;
+    border: 1px solid rgba(196,30,107,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .why-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 700; color: var(--cream); margin-bottom: 0.4rem;
+  }
+  .why-text p { font-size: 0.88rem; line-height: 1.7; color: var(--mist); font-weight: 300; }
+  .big-stat { text-align: right; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(5rem, 12vw, 10rem);
+    font-weight: 900; font-style: italic;
+    color: rgba(196,30,107,0.12);
+    line-height: 0.9;
+  }
+  .stat-label {
+    font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--mist); margin-top: 0.5rem;
+  }
+  .stat-detail {
+    font-size: 1rem; font-weight: 300; color: var(--champagne);
+    line-height: 1.6; margin-top: 1.5rem; text-align: left;
+    opacity: 0.75;
+  }
+
+  /* ── INQUIRY FORM ── */
+  #inquiry {
+    background: var(--wine);
+    padding: 8rem 4rem; position: relative; overflow: hidden;
+  }
+  #inquiry::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(196,30,107,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .inquiry-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; position: relative; }
+  .inquiry-info .section-body { margin-top: 1rem; }
+  .info-cards { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .info-card {
+    border-left: 2px solid var(--magenta);
+    padding: 0.8rem 1.2rem;
+    background: rgba(255,255,255,0.03);
+  }
+  .info-card h5 {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--magenta); margin-bottom: 0.4rem;
+  }
+  .info-card p { font-size: 0.9rem; color: var(--champagne); font-weight: 300; }
+
+  /* FORM */
+  .inquiry-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group label {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--mist);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,170,180,0.15);
+    color: var(--champagne);
+    padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(168,155,174,0.5); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--magenta); }
+  .form-group select { appearance: none; cursor: pointer; }
+  .form-group select option { background: var(--wine); }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-note {
+    font-size: 0.78rem; color: var(--mist); opacity: 0.6; line-height: 1.5;
+  }
+  .btn-submit {
+    background: var(--magenta); color: #fff; border: none;
+    padding: 1rem 2.5rem; font-size: 0.85rem; letter-spacing: 0.12em;
+    text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: background 0.3s, transform 0.2s; align-self: flex-start;
+  }
+  .btn-submit:hover { background: var(--rose); transform: translateY(-2px); }
+  .form-success {
+    display: none; text-align: center; padding: 3rem 1rem;
+    font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic;
+    color: var(--cream);
+  }
+  .form-success span { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-style: normal; color: var(--mist); margin-top: 0.8rem; font-weight: 300; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050508;
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(200,170,180,0.08);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-style: italic; font-weight: 700;
+    color: var(--mist);
+  }
+  .footer-logo span { color: var(--magenta); }
+  .footer-copy { font-size: 0.78rem; color: rgba(168,155,174,0.5); letter-spacing: 0.05em; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  .fade-up { opacity: 0; animation: fadeUp 0.8s ease forwards; }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+  .delay-4 { animation-delay: 0.6s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav ul { display: none; }
+    .hero-content, #about, #programs, #why, #inquiry, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .about-grid, .why-grid, .inquiry-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .programs-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Abhinaya<span> Studio</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#inquiry">Inquire</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="abstract-canvas"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow fade-up">Drama · Voice · Movement · Presence</p>
+    <h1 class="hero-title fade-up delay-1">
+      Where the<br><em>Body Becomes</em><br>the Stage
+    </h1>
+    <p class="hero-sub fade-up delay-2">
+      Named after the Nāṭyaśāstra's deepest teaching — Abhinaya, the art of carrying meaning toward the audience — we train performers to embody truth, voice, and presence.
+    </p>
+    <div class="hero-cta fade-up delay-3">
+      <a href="#inquiry" class="btn-primary">Inquire for Classes</a>
+      <a href="#programs" class="btn-ghost">Explore Programs</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <p class="section-label">Our Philosophy</p>
+      <div class="section-divider">
+        <div class="divider-dot"></div>
+        <div class="divider-line"></div>
+      </div>
+      <h2 class="section-title">Drama is not<br>performance — it is<br><em>recognition</em></h2>
+      <p class="section-body">
+        Founded on the belief that theatre is a path to self-knowing, Rasa Studio blends classical training with contemporary methods. Our faculty draws from the Nāṭyaśāstra, Stanislavski, Lecoq, and movement-based somatic practices — creating a unique crucible for the emerging performer.
+      </p>
+      <p class="section-body">
+        Whether you're a beginner discovering your voice or a practitioner deepening your craft, our programs are designed to unlock authentic presence — on stage, on screen, and in life.
+      </p>
+    </div>
+    <div class="about-art">
+      <div class="abstract-blob blob-1"></div>
+      <div class="abstract-blob blob-2"></div>
+      <div class="abstract-blob blob-3"></div>
+      <p class="art-quote">"The actor does not<br>play a role. He becomes."</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="programs-header">
+    <p class="section-label">What We Offer</p>
+    <div class="section-divider" style="max-width:400px;margin:1rem auto 0;">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-line"></div>
+    </div>
+    <h2 class="section-title" style="margin-top:1rem;">Programs &amp; Disciplines</h2>
+  </div>
+  <div class="programs-grid">
+    <div class="program-card">
+      <div class="card-number">I</div>
+      <h3 class="card-title">Scene Study & Acting Technique</h3>
+      <p class="card-desc">Deep character work, text analysis, and truthful moment-to-moment acting using an integrated approach across Stanislavski, Meisner, and Viewpoints.</p>
+      <span class="card-tag">Online · In-Person</span>
+    </div>
+    <div class="program-card">
+      <div class="card-number">II</div>
+      <h3 class="card-title">Voice & Speech Mastery</h3>
+      <p class="card-desc">Resonance, breath support, clarity, and expressive range. Includes classical verse, accent work, and voice liberation exercises drawn from Linklater and Berry.</p>
+      <span class="card-tag">Online · In-Person</span>
+    </div>
+    <div class="program-card">
+      <div class="card-number">III</div>
+      <h3 class="card-title">Physical Theatre & Movement</h3>
+      <p class="card-desc">The body as text. Devised performance, mask work, mime, and somatic awareness that transform how actors inhabit space and silence.</p>
+      <span class="card-tag">In-Person</span>
+    </div>
+    <div class="program-card">
+      <div class="card-number">IV</div>
+      <h3 class="card-title">Storytelling & Devised Work</h3>
+      <p class="card-desc">Creating original performance from personal narrative, mythology, and found material. For writers, performers, and cross-disciplinary artists.</p>
+      <span class="card-tag">Online · In-Person</span>
+    </div>
+    <div class="program-card">
+      <div class="card-number">V</div>
+      <h3 class="card-title">Young Performers (Ages 10–17)</h3>
+      <p class="card-desc">Play-led exploration of drama, improvisation, and ensemble storytelling for young people. Safe, expressive, joyful — and rigorous.</p>
+      <span class="card-tag">Online · In-Person</span>
+    </div>
+    <div class="program-card">
+      <div class="card-number">VI</div>
+      <h3 class="card-title">Private Coaching — Online</h3>
+      <p class="card-desc">One-on-one mentorship tailored to your goals: audition preparation, role development, personal growth, or professional refinement. Available worldwide.</p>
+      <span class="card-tag">Online Only</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="why-grid">
+    <div>
+      <p class="section-label">The Rasa Difference</p>
+      <div class="section-divider">
+        <div class="divider-dot"></div>
+        <div class="divider-line"></div>
+      </div>
+      <h2 class="section-title">Training built for<br>the whole <em>human</em></h2>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-icon">✦</div>
+          <div class="why-text">
+            <h4>Globally Accessible Online Sessions</h4>
+            <p>Our virtual studio brings professional drama training to students across time zones, using professional broadcast-quality setups for full presence online.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">◈</div>
+          <div class="why-text">
+            <h4>Small Cohorts, Real Attention</h4>
+            <p>Maximum 8 students per group class. You are not an audience — you are a collaborator. Private sessions are available for complete personal focus.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">⬡</div>
+          <div class="why-text">
+            <h4>Rooted in Classical + Contemporary</h4>
+            <p>We hold Western and Indian performance traditions in conversation — Nāṭyaśāstra meets Stanislavski, Rasa meets Realism, Abhinaya meets Physical Theatre.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="big-stat">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Years of Performance Education</div>
+      </div>
+      <p class="stat-detail">
+        Our faculty brings over a decade of professional stage, screen, and teaching experience — across theatre festivals, film sets, and global institutions.
+      </p>
+      <div class="big-stat" style="margin-top:3rem;">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Online Reach — Worldwide</div>
+      </div>
+      <p class="stat-detail">
+        From India to Europe to the Americas, our online private coaching has reached students in over 20 countries.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- INQUIRY -->
+<section id="inquiry">
+  <div class="inquiry-inner">
+    <div class="inquiry-info">
+      <p class="section-label">Private Classes — Online</p>
+      <div class="section-divider">
+        <div class="divider-dot"></div>
+        <div class="divider-line"></div>
+      </div>
+      <h2 class="section-title">Begin your<br><em>private journey</em></h2>
+      <p class="section-body">
+        Our online private classes are individually designed — there is no template here. We begin with a conversation, then build your sessions around your specific goals, schedule, and creative questions.
+      </p>
+      <div class="info-cards">
+        <div class="info-card">
+          <h5>Format</h5>
+          <p>1-on-1 via Zoom or Google Meet — 60 or 90 minute sessions</p>
+        </div>
+        <div class="info-card">
+          <h5>Frequency</h5>
+          <p>Once or twice weekly — flexible scheduling across time zones</p>
+        </div>
+        <div class="info-card">
+          <h5>Response Time</h5>
+          <p>We respond to all inquiries within 48 hours with a proposal tailored to you</p>
+        </div>
+        <div class="info-card">
+          <h5>First Session</h5>
+          <p>A complimentary 30-minute exploratory call before any commitment</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="inquiry-form" id="inquiry-form">
+        <p class="form-title">Send us an Inquiry</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="Your first name" required>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Your last name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="country">Country / Time Zone</label>
+            <input type="text" id="country" placeholder="e.g. India, IST">
+          </div>
+          <div class="form-group">
+            <label for="age">Your Age</label>
+            <input type="text" id="age" placeholder="e.g. 24">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="interest">Primary Interest</label>
+          <select id="interest">
+            <option value="" disabled selected>Select a focus area</option>
+            <option>Acting Technique & Scene Study</option>
+            <option>Voice & Speech</option>
+            <option>Physical Theatre & Movement</option>
+            <option>Storytelling & Devised Work</option>
+            <option>Audition Coaching</option>
+            <option>Young Performers (10–17)</option>
+            <option>Not sure yet — I'd like guidance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="experience">Your Experience Level</label>
+          <select id="experience">
+            <option value="" disabled selected>Select your level</option>
+            <option>Complete Beginner</option>
+            <option>Some Exploration</option>
+            <option>Intermediate Practitioner</option>
+            <option>Advanced / Professional</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us what you're looking for</label>
+          <textarea id="message" placeholder="Share your goals, questions, or anything that feels relevant. There are no wrong answers here."></textarea>
+        </div>
+        <p class="form-note">We will reach out within 48 hours with a personalised response — never a generic reply.</p>
+        <button class="btn-submit" onclick="submitForm()">Submit Inquiry</button>
+      </div>
+      <div class="form-success" id="form-success">
+        ✦ Your inquiry has arrived.<br>
+        <span>We'll be in touch within 48 hours with something made just for you.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Abhinaya<span> Studio</span></div>
+  <div class="footer-copy">© 2025 Abhinaya Studio. All rights reserved.</div>
+</footer>
+
+<script>
+// ── ABSTRACT CANVAS ANIMATION ──
+const canvas = document.getElementById('abstract-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, blobs;
+
+function resize() {
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+}
+
+function makeBlob() {
+  return {
+    x: Math.random() * W,
+    y: Math.random() * H,
+    r: 120 + Math.random() * 200,
+    hue: Math.random() > 0.5 ? [196, 30, 107] : [212, 168, 83],
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    opacity: 0.04 + Math.random() * 0.07,
+  };
+}
+
+function initBlobs() {
+  blobs = Array.from({ length: 9 }, makeBlob);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  blobs.forEach(b => {
+    const grd = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+    grd.addColorStop(0, `rgba(${b.hue[0]},${b.hue[1]},${b.hue[2]},${b.opacity})`);
+    grd.addColorStop(1, `rgba(${b.hue[0]},${b.hue[1]},${b.hue[2]},0)`);
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+    b.x += b.vx; b.y += b.vy;
+    if (b.x < -b.r) b.x = W + b.r;
+    if (b.x > W + b.r) b.x = -b.r;
+    if (b.y < -b.r) b.y = H + b.r;
+    if (b.y > H + b.r) b.y = -b.r;
+  });
+  requestAnimationFrame(draw);
+}
+
+resize(); initBlobs(); draw();
+window.addEventListener('resize', () => { resize(); });
+
+// ── FORM SUBMIT ──
+function submitForm() {
+  const fname = document.getElementById('fname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  if (!fname || !email) {
+    alert('Please fill in at least your name and email.');
+    return;
+  }
+  document.getElementById('inquiry-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.program-card, .why-item, .info-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
